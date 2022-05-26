@@ -50,7 +50,7 @@ public class FirstRoadrunner extends LinearOpMode {
             trajectoryQueue.add(t6);
             trajectoryQueue.add(t7);
         } catch(Exception EmptyPathSegmentException){
-        //TEST 2
+        //TEST 3
         }
         waitForStart();
 
