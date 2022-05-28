@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Config
+@Config //test
 public class AbstractMecanum extends OpMode {
     public enum DriveMode{ FIELDCENTRIC, ROBOTCENTRIC}
     private DcMotor leftFront, leftRear, rightRear, rightFront;
