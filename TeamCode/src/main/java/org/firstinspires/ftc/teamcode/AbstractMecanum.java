@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+import org.firstinspires.ftc.teamcode.util.controller.Controller;
 import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
@@ -11,7 +12,8 @@ public class AbstractMecanum extends OpMode {
     private ElapsedTime runtime;
     private DriveMode mode;
     private BNO055IMU imu;
-    private Button yButton, xButton;
+    private Button driver1Y, driver1X;
+    private Controller driver1;
     BNO055IMU.Parameters imuParameters;
     Orientation angles;
 
@@ -29,7 +31,8 @@ public class AbstractMecanum extends OpMode {
         imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         imuParameters.loggingEnabled = false;
         imu.initialize(imuParameters);
-        yButton = xButton = new Button(false);
+        driver1 = new Controller(gamepad1);
+        driver1Y = driver1X = new Button(false);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -40,11 +43,11 @@ public class AbstractMecanum extends OpMode {
     }
     @Override
     public void loop() {
-        x = gamepad1.left_stick_x;
-        y = gamepad1.left_stick_y;
-        rx = gamepad1.right_stick_x;
-        yButton.update(gamepad1.y);
-        xButton.update(gamepad1.x);
+        x = driver1.getLeftStick.getX();
+        y = driver1.getLeftStick.getY();
+        rx = driver1.getRightStick.getX();
+        driver1Y.update(driver1.getY());
+        driver1X.update(driver1.getX());
 
         if(mode.equals(DriveMode.FIELDCENTRIC)){
             double deg = -angles.firstAngle;
