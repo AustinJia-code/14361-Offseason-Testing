@@ -23,3 +23,8 @@ dependencies {
 
     implementation 'com.acmerobotics.roadrunner:core:0.5.5'
 }
+dependencies {
+    implementation 'org.ftclib.ftclib:core:2.0.1'
+    // the following is optional if you want vision
+    implementation 'org.ftclib.ftclib:vision:2.0.1'
+}
