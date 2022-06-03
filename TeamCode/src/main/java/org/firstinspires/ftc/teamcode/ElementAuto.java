@@ -39,7 +39,6 @@ public class ElementAuto extends LinearOpMode {
         ElementDetector.ElementLocation location = detector.getLocation();
         switch(ElementDetector.ElementLocation location)
          case(LEFT){
-
             break;
          }
          case(MIDDLE){
