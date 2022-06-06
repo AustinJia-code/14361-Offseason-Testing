@@ -1,13 +1,11 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleop;
-
+package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import static org.firstinspires.ftc.teamcode.util.Alliance.BLUE;
-
 @TeleOp(name = "Blue TeleOp", group = "Test")
-public class BlueTeleOp extends AbstractMecanum {
+public class AbstractRunner extends AbstractMecanum {
+    private int alliance;
     @Override
     public void setAlliance() {
-        this.alliance = BLUE;
+        alliance = 1;
     }
 }

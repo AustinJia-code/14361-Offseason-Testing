@@ -1,16 +1,45 @@
 package org.firstinspires.ftc.teamcode;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 class MecanumBot {
     private DcMotor leftFront, leftRear, rightRear, rightFront;
     private double x, y, rx;
+    private Mode mode;
 
-    MecanumBot(HardwareMap hardwareMap) {
+    enum Mode{FIELD, ROBOT}
+
+    MecanumBot(HardwareMap hardwareMap, Mode m) {
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        mode = m;
+    }
+
+    void setMode(Mode m){
+        mode = m;
+    }
+
+    void flop(){
+        if(mode.equals(Mode.ROBOT)){
+            mode = Mode.FIELD;
+        }else{
+            mode = Mode.ROBOT;
+        }
+    }
+
+    Mode getMode(){
+        return mode;
+    }
+
+    void drive(GamepadEx gamepad, double angle){
+        if(mode == Mode.FIELD) {
+            fieldMove(gamepad.getLeftX(), gamepad.getLeftY(), gamepad.getRightX(), angle);
+        }else{
+            robotMove(gamepad.getLeftX(), gamepad.getLeftY(), gamepad.getRightX());
+        }
     }
 
     void fieldMove(double x, double y, double rx, double angle){
