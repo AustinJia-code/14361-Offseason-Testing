@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 class MecanumBot {
-    private DcMotor leftFront, leftRear, rightRear, rightFront;
-    private double x, y, rx;
+    private DcMotorEx leftFront, leftRear, rightRear, rightFront, slide;
     private Mode mode;
+    private PIDController slidePID;
+    private int SLIDE_UPPER_BOUND = 1000, SLIDE_LOWER_BOUND = 0;
 
     enum Mode{FIELD, ROBOT}
 
@@ -15,7 +17,9 @@ class MecanumBot {
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        slide = hardwareMap.get(DcMotorEx.class, "slide");
         mode = m;
+        slidePID = new PIDController(1, 1, 1);
     }
 
     void setMode(Mode m){
@@ -64,5 +68,11 @@ class MecanumBot {
         leftRear.setPower(leftRearPower);
         rightFront.setPower(rightFrontPower);
         rightRear.setPower(rightRearPower);
+    }
+    void slideDown(double multiplier){
+        slide.setVelocity(slidePID.calculate(slide.getCurrentPosition(), SLIDE_LOWER_BOUND));
+    }
+    void slideUp(double multiplier) {
+        slide.setVelocity(slidePID.calculate(slide.getCurrentPosition(), SLIDE_UPPER_BOUND));
     }
 }
