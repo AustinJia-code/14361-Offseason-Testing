@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Config
 public class AbstractMecanum extends OpMode {
 
-    private MecanumBot bot;
+    private Mecanum bot;
     private ElapsedTime runtime;
     private RevIMU imu;
     private GamepadEx driver1;
@@ -29,7 +29,7 @@ public class AbstractMecanum extends OpMode {
         telemetry.update();
 
         setAlliance();
-        bot = new MecanumBot(hardwareMap, MecanumBot.Mode.FIELD);
+        bot = new Mecanum(hardwareMap, MecanumBot.Mode.FIELD);
         runtime = new ElapsedTime();
         imu = new RevIMU(hardwareMap);
         driver1 = new GamepadEx(gamepad1);
