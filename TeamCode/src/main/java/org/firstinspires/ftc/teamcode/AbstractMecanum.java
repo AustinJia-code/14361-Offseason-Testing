@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -56,14 +55,6 @@ public class AbstractMecanum extends OpMode {
 
         if(driver1.wasJustPressed(GamepadKeys.Button.X)) {
             bot.flop();
-        }
-
-        if(driver1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0) {
-            bot.slideUp(driver1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
-        }
-
-        if(driver1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0) {
-            bot.slideDown(driver1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
         }
         telemetry.addData("Runtime:", runtime.toString());
     }
