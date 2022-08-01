@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-public class Drivetrain {
+public class Drivetrain implements Subsystem {
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;
     double y, x, rx, power, leftFrontPower, leftRearPower, rightFrontPower, rightRearPower, max, deg, rad, temp;
     private RevIMU imu;
@@ -19,6 +20,10 @@ public class Drivetrain {
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+
+        leftRear.setDirection(DcMotorEx.Direction.REVERSE);
+        leftFront.setDirection(DcMotorEx.Direction.REVERSE);
+
         imu = new RevIMU(hardwareMap);
         mode = Mode.FIELD;
     }
@@ -27,7 +32,7 @@ public class Drivetrain {
         mode = m;
     }
     public void recenter(){imu.reset();}
-    public void flop(){
+    public void switchModes(){
         if(mode.equals(Mode.ROBOT)){
             mode = Mode.FIELD;
         }else{
@@ -44,9 +49,9 @@ public class Drivetrain {
     }
 
     public void drive(GamepadEx gamepad){
-        y = gamepad.getLeftY();
-        x = gamepad.getLeftX();
-        rx = gamepad.getRightX();
+        y = Math.pow(gamepad.getLeftY(), 3);
+        x = Math.pow(gamepad.getLeftX(), 3);
+        rx = Math.pow(gamepad.getRightX(), 3);
 
         if(mode == Mode.FIELD) {
             deg = -imu.getHeading();
