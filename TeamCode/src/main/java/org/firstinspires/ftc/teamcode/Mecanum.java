@@ -6,16 +6,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 class MecanumBot {
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;
+    private RevIMU imu;
     private Mode mode;
 
     enum Mode{FIELD, ROBOT}
 
-    MecanumBot(HardwareMap hardwareMap, Mode m) {
+    MecanumBot(HardwareMap hardwareMap) {
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        mode = m;
+        imu = new RevIMU(HardwareMap);
+        mode = FIELD;
     }
 
     void setMode(Mode m){
