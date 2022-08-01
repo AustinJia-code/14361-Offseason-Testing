@@ -37,6 +37,7 @@ public class TeleAbstract extends OpMode {
         telemetry.addData("Alliance:", allianceToString());
         telemetry.update();
 
+        driver1.readButtons();
         if(driver1.wasJustPressed(Button.X)){ alliance = -1; }
         if(driver1.wasJustPressed(Button.B)){ alliance = 1; }
     }
