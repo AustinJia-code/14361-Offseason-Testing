@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.Tele;
+package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.controller.PIDController;
@@ -6,7 +6,7 @@ import com.arcrobotics.ftclib.gamepad.*;
 import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Subsystems.*;
+import org.firstinspires.ftc.teamcode.subsystems.*;
 
 @Config
 public class TeleAbstract extends OpMode {

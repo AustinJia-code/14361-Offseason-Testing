@@ -180,7 +180,7 @@ public class ConceptVuforiaDriveToTargetWebcam extends LinearOpMode
                 drive = rangeError * SPEED_GAIN;
                 turn  = headingError * TURN_GAIN ;
 
-                telemetry.addData("Auto","Drive %5.2f, Turn %5.2f", drive, turn);
+                telemetry.addData("autonomous","Drive %5.2f, Turn %5.2f", drive, turn);
             } else {
 
                 // drive using manual POV Joystick mode.

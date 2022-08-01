@@ -116,7 +116,7 @@ public class SampleRevBlinkinLedDriver extends OpMode {
      * which in this application is problematic.
      *
      * A: Manual mode, Right bumper displays the next pattern, left bumper displays the previous pattern.
-     * B: Auto mode, pattern cycles, changing every LED_PERIOD seconds.
+     * B: autonomous mode, pattern cycles, changing every LED_PERIOD seconds.
      */
     protected void handleGamepad()
     {

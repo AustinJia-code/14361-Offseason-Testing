@@ -55,7 +55,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Pushbot: Auto Drive By Time", group="Pushbot")
+@Autonomous(name="Pushbot: autonomous Drive By Time", group="Pushbot")
 @Disabled
 public class PushbotAutoDriveByTime_Linear extends LinearOpMode {
 
@@ -83,7 +83,7 @@ public class PushbotAutoDriveByTime_Linear extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
+        // Step through each leg of the path, ensuring that the autonomous mode has not been stopped along the way
 
         // Step 1:  Drive forward for 3 seconds
         robot.leftDrive.setPower(FORWARD_SPEED);

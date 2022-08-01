@@ -268,7 +268,7 @@ public class ConceptVuforiaSkyStoneNavigation extends LinearOpMode {
         //
         // Create a transformation matrix describing where the phone is on the robot.
         //
-        // NOTE !!!!  It's very important that you turn OFF your phone's Auto-Screen-Rotation option.
+        // NOTE !!!!  It's very important that you turn OFF your phone's autonomous-Screen-Rotation option.
         // Lock it into Portrait for these numbers to work.
         //
         // Info:  The coordinate frame for the robot looks the same as the field.
