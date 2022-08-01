@@ -1,24 +1,20 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.*;
-import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.subsystems.*;
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 @Config
 public class TeleAbstract extends OpMode {
 
-    private Mecanum bot;
+    private Drivetrain bot;
     private ElapsedTime runtime;
     private GamepadEx driver1;
     private int alliance;
 
-    public void setAlliance() {
-        alliance = -1;
-    }
+    public void setAlliance() { alliance = -1; }
     public String getAlliance(){
         return alliance == -1 ? "RED" : "BLUE";
     }
@@ -29,7 +25,7 @@ public class TeleAbstract extends OpMode {
         telemetry.update();
 
         setAlliance();
-        bot = new Mecanum(hardwareMap, MecanumBot.Mode.FIELD);
+        bot = new Drivetrain(hardwareMap);
         runtime = new ElapsedTime();
         driver1 = new GamepadEx(gamepad1);
     }

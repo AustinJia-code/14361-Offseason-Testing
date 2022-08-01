@@ -1,30 +1,33 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode.subsystems;
+
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-class Mecanum {
+public class Drivetrain {
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;
+    double y, x, rx, power, leftFrontPower, leftRearPower, rightFrontPower, rightRearPower, max, deg, rad, temp;
     private RevIMU imu;
     private Mode mode;
 
     enum Mode{FIELD, ROBOT}
 
-    Mecanum(HardwareMap hardwareMap) {
+    public Drivetrain(HardwareMap hardwareMap) {
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        imu = new RevIMU(HardwareMap);
-        mode = FIELD;
+        imu = new RevIMU(hardwareMap);
+        mode = Mode.FIELD;
     }
 
-    void setMode(Mode m){
+    public void setMode(Mode m){
         mode = m;
     }
-    void recenter(){imu.reset();}
-    void flop(){
+    public void recenter(){imu.reset();}
+    public void flop(){
         if(mode.equals(Mode.ROBOT)){
             mode = Mode.FIELD;
         }else{
@@ -32,7 +35,7 @@ class Mecanum {
         }
     }
 
-    String getMode(){
+    public String getMode(){
         if(mode == Mode.FIELD){
             return "FIELD CENTRIC";
         }else{
@@ -40,24 +43,28 @@ class Mecanum {
         }
     }
 
-    void drive(GamepadEx gamepad){
+    public void drive(GamepadEx gamepad){
+        y = gamepad.getLeftY();
+        x = gamepad.getLeftX();
+        rx = gamepad.getRightX();
+
         if(mode == Mode.FIELD) {
-            float deg = -imu.getHeading();
-            float rad = deg * Math.PI/180;
-            float temp = y * Math.cos(rad) + x * Math.sin(rad);
+            deg = -imu.getHeading();
+            rad = deg * Math.PI/180;
+            temp = y * Math.cos(rad) + x * Math.sin(rad);
             x = -y * Math.sin(rad) + x * Math.cos(rad);
             y = temp;
         }
-        float power = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-        float leftFrontPower = (y + x + rx) * power;
-        float leftRearPower = (y - x + rx) * power;
-        float rightFrontPower = (y - x - rx) * power;
-        float rightRearPower = (y + x - rx) * power;
-        float max = Math.max(1.0, Math.max(leftFrontPower, Math.max(leftRearPower, Math.max(rightFrontPower, rightRearPower))));
+        power = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        leftFrontPower = (y + x + rx) * power;
+        leftRearPower = (y - x + rx) * power;
+        rightFrontPower = (y - x - rx) * power;
+        rightRearPower = (y + x - rx) * power;
+        max = Math.max(1.0, Math.max(leftFrontPower, Math.max(leftRearPower, Math.max(rightFrontPower, rightRearPower))));
         powerMotors(leftFrontPower/max, leftRearPower/max, rightFrontPower/max, rightRearPower/max);
     }
 
-    void powerMotors(float leftFrontPower, float leftRearPower, float rightFrontPower, float rightRearPower){
+    private void powerMotors(double leftFrontPower, double leftRearPower, double rightFrontPower, double rightRearPower){
         leftFront.setPower(leftFrontPower);
         leftRear.setPower(leftRearPower);
         rightFront.setPower(rightFrontPower);

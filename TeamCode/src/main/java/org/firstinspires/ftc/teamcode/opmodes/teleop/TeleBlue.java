@@ -1,12 +1,10 @@
-package org.firstinspires.ftc.teamcode.ppmodes.teleop;
+package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "Blue TeleOp", group = "Test")
 public class TeleBlue extends TeleAbstract {
-    private int alliance;
+    int alliance;
     @Override
-    public void setAlliance() {
-        alliance = 1;
-    }
+    public void setAlliance() { alliance = 1; }
 }
