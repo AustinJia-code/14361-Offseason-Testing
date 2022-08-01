@@ -1,4 +1,5 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.opmodes.Auto;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.path.EmptyPathSegmentException;
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.teamcode.drive.*;
 import java.util.*;
 
 @Autonomous
-public class FirstRoadrunner extends LinearOpMode {
+public class AutoAbstract extends LinearOpMode {
     //public SampleMecanumDrive drive;
     Queue<Trajectory> trajectoryQueue;
 
