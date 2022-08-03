@@ -7,59 +7,40 @@ import com.acmerobotics.roadrunner.trajectory.*;
 import com.qualcomm.robotcore.eventloop.opmode.*;
 
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Webcam;
 
 import java.util.*;
 
 @Autonomous
-public class AutoAbstract extends LinearOpMode {
-    //public SampleMecanumDrive drive;
-    Queue<Trajectory> trajectoryQueue;
+public abstract class AutoAbstract extends LinearOpMode {
+
+    int cameraPosition;
+    Drivetrain bot;
+    Webcam webcam;
 
     @Override
-    public void runOpMode() throws InterruptedException{
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        trajectoryQueue = new LinkedList<>();
-        
-        try {
-            Trajectory t1 = drive.trajectoryBuilder(new Pose2d(0, 0, 0))
-                    .strafeLeft(10)
-                    .build();
-            Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                    .forward(10)
-                    .build();
+    public void runOpMode(){
+        //init
+        telemetry.addLine("Status: Initializing");
+        telemetry.update();
 
-            Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                    .lineTo(new Vector2d(0, 0))
-                    .build();
+        bot = new Drivetrain(hardwareMap);
+        webcam = new Webcam(hardwareMap);
 
-            Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                    .lineToLinearHeading(new Pose2d(20, 20, Math.toRadians(90)))
-                    .build();
-            Trajectory t5 = drive.trajectoryBuilder(t4.end())
-                    .splineTo(new Vector2d(40, 40), Math.toRadians(90))
-                    .build();
-            Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                    .splineToConstantHeading(new Vector2d(20, 20), Math.toRadians(90))
-                    .build();
-            Trajectory t7 = drive.trajectoryBuilder(t6.end())
-                    .splineToLinearHeading(new Pose2d(40, 40, Math.toRadians(0)), Math.toRadians(90))
-                    .build();
+        build();
 
-            trajectoryQueue.add(t1);
-            trajectoryQueue.add(t2);
-            trajectoryQueue.add(t3);
-            trajectoryQueue.add(t4);
-            trajectoryQueue.add(t5);
-            trajectoryQueue.add(t6);
-            trajectoryQueue.add(t7);
-        } catch(Exception EmptyPathSegmentException){
-        //TEST 3
+        //init loop
+        while(!(isStarted() || isStopRequested())){
+            telemetry.addLine("STATUS: INITIALIZED");
+            telemetry.update();
         }
-        waitForStart();
 
-        while(!trajectoryQueue.isEmpty()) {
-            drive.followTrajectory(trajectoryQueue.poll());
-            sleep(1000);
-        }
+        execute(webcam.getAnalysis());
+
     }
+
+    public abstract void setCameraPosition();
+    public abstract void build();
+    public abstract void execute(int TSEPosition);
 }

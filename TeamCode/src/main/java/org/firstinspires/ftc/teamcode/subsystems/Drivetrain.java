@@ -6,8 +6,10 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
 
 public class Drivetrain implements Subsystem {
+    public static SampleMecanumDrive drive;
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;
     double y, x, rx, power, leftFrontPower, leftRearPower, rightFrontPower, rightRearPower, max, deg, rad, temp;
     private RevIMU imu;

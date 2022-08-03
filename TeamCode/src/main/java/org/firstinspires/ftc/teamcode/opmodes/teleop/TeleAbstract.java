@@ -8,14 +8,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 @Config
-public class TeleAbstract extends OpMode {
+public abstract class TeleAbstract extends OpMode {
 
     private Drivetrain bot;
     private ElapsedTime runtime;
     private GamepadEx driver1;
-    private int alliance;
+    int alliance;
 
-    public int getAlliance() { return 0; } //-1 BLUE, 0 NEITHER, 1 RED
+    public abstract void setAlliance(); //-1 BLUE, 0 NEITHER, 1 RED
     public String allianceToString(){
         return alliance == -1 ? "BLUE" : (alliance == 0 ? "NEITHER" : "RED");
     }
@@ -25,7 +25,7 @@ public class TeleAbstract extends OpMode {
         telemetry.addLine("Status: Initializing");
         telemetry.update();
 
-        alliance = getAlliance();
+        setAlliance();
         bot = new Drivetrain(hardwareMap);
         driver1 = new GamepadEx(gamepad1);
         runtime = new ElapsedTime();
